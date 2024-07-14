@@ -1,0 +1,86 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+}
+
+.landing-page {
+  text-align: center;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+.header .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.header .btn {
+  background-color: #ff6347;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.hero-section {
+  background: url('https://www.alzolacoworking.com/wp-content/uploads/2020/11/2020-_DSF2202-scaled.jpg') no-repeat center center/cover;
+  color: #ff6055;
+  padding: 100px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hero-section .hero-content {
+  max-width: 600px;
+}
+
+.hero-section h1 {
+  font-weight: 700; 
+  font-family: 'Roboto', sans-serif; 
+}
+
+.hero-section p {
+  font-weight: 500; 
+  font-family: 'Roboto', sans-serif; 
+}
+.btn-primary {
+  background-color: #ff6347;
+  border: none;
+  padding: 15px 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.features-section {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+}
+
+.feature {
+  max-width: 300px;
+  text-align: left;
+}
+
+.feature h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 16px;
+}

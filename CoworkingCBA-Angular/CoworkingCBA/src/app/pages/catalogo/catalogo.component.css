@@ -1,0 +1,49 @@
+.card {
+  border: none;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img-top {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  max-height: 200px; /* Ajusta la altura máxima de la imagen */
+  object-fit: cover; /* Ajusta el tamaño de la imagen */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: row; /* Cambiado a row para alinear contenido horizontalmente */
+  align-items: center; /* Alinear elementos verticalmente */
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  flex: 1; /* Ocupa el espacio restante */
+  margin-right: 1rem; /* Margen derecho para separar del botón */
+}
+
+.card-text {
+  color: #666;
+  flex: 1; /* Ocupa el espacio restante */
+}
+
+.btn-primary {
+  background-color: #c4d5d6; /* Color verde pastel ceniza */
+  border-color: #c4d5d6;
+  color: #333; /* Color de texto */
+  margin-left: auto; /* Empujar el botón hacia la derecha */
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #a9c3c4; /* Cambio de color al pasar el ratón */
+  border-color: #a9c3c4;
+}

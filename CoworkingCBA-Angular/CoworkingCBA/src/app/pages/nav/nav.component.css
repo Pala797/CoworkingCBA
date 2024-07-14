@@ -1,0 +1,22 @@
+.navbar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #c4e7da; 
+  }
+  
+  .navbar-nav .active .nav-link {
+    color: #ffffff; 
+  }
+  
