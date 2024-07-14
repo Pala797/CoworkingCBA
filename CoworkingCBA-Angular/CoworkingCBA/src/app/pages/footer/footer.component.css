@@ -1,0 +1,36 @@
+footer {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  footer h5 {
+    color:  #c4e7da; 
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  footer p {
+    color: #ccc;
+  }
+  
+  footer ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  footer ul li {
+    color: #cccccc;
+    margin-bottom: 0.5rem;
+  }
+  
+  footer ul li i {
+    margin-right: 0.5rem;
+    color: #c4d5d6; /* Iconos en color pastel ceniza verde */
+  }
+  
+  footer .text-center {
+    background-color: #394139;
+    color: #ccc;
+    padding: 0.5rem 0;
+  }
+  
