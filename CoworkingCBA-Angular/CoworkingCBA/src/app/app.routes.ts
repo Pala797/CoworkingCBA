@@ -4,12 +4,14 @@ import { PaginaPrincipalComponent } from './pages/pagina-principal/pagina-princi
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { NavComponent } from './pages/nav/nav.component';
 
+
 export const routes: Routes = [
 
 
     {path:'', component:PaginaPrincipalComponent},
     { path: 'catalogo', component: CatalogoComponent },
     { path: 'nav', component: NavComponent },
+
     
 
 

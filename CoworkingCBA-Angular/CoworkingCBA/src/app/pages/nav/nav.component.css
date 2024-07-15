@@ -19,4 +19,6 @@
   .navbar-nav .active .nav-link {
     color: #ffffff; 
   }
-  
+  .highlight-cba {
+    color: #c4e7da;
+}
