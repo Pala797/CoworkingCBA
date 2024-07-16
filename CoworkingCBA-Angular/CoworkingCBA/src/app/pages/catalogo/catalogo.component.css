@@ -11,14 +11,14 @@
 .card-img-top {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  max-height: 200px; /* Ajusta la altura máxima de la imagen */
-  object-fit: cover; /* Ajusta el tamaño de la imagen */
+  max-height: 200px; 
+  object-fit: cover; 
 }
 
 .card-body {
   display: flex;
-  flex-direction: row; /* Cambiado a row para alinear contenido horizontalmente */
-  align-items: center; /* Alinear elementos verticalmente */
+  flex-direction: row;
+  align-items: center; 
   padding: 1.5rem;
 }
 
@@ -26,24 +26,24 @@
   font-size: 1.25rem;
   font-weight: bold;
   color: #333;
-  flex: 1; /* Ocupa el espacio restante */
-  margin-right: 1rem; /* Margen derecho para separar del botón */
+  flex: 1; 
+  margin-right: 1rem;
 }
 
 .card-text {
   color: #666;
-  flex: 1; /* Ocupa el espacio restante */
+  flex: 1; 
 }
 
 .btn-primary {
-  background-color: #c4d5d6; /* Color verde pastel ceniza */
+  background-color: #c4d5d6; 
   border-color: #c4d5d6;
-  color: #333; /* Color de texto */
-  margin-left: auto; /* Empujar el botón hacia la derecha */
+  color: #333; 
+  margin-left: auto;
   transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: #a9c3c4; /* Cambio de color al pasar el ratón */
+  background-color: #a9c3c4; 
   border-color: #a9c3c4;
 }

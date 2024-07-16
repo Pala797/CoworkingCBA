@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-registro',
+  standalone: true,
+  imports: [],
+  templateUrl: './registro.component.html',
+  styleUrl: './registro.component.css'
 })
-export class LoginComponent {
+export class RegistroComponent {
   constructor(private router: Router) {}
 
-  login() {
+  registro() {
     // Aquí se maneja la lógica de autenticación
     const username = (document.getElementById('username') as HTMLInputElement).value;
     const password = (document.getElementById('password') as HTMLInputElement).value;
@@ -24,7 +26,7 @@ export class LoginComponent {
     // Evita que el formulario se envíe realmente
     return false;
   }
-  navigateToRegister() {
-    this.router.navigate(['/registro']);
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }

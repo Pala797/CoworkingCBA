@@ -4,6 +4,7 @@ import { PaginaPrincipalComponent } from './pages/pagina-principal/pagina-princi
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { NavComponent } from './pages/nav/nav.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegistroComponent } from './pages/registro/registro.component';
 
 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
     { path: 'catalogo', component: CatalogoComponent },
     { path: 'nav', component: NavComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'registro', component: RegistroComponent },
     
 
 
