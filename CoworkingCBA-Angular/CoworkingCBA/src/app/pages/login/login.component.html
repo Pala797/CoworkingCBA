@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Iniciar Sesion</title>
+</head>
+<body>
+    <br>
+    <br>
+    
+    <div class="container">
+  
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="mb-4">Iniciar Sesion </h2>
+                
+                <div class="login-container">
+                    <br>
+                    <form (submit)="login()">
+                        <h5 class="mb-4">Ingrese Sus Datos</h5>
+                        <div class="form-group">
+                            <label for="username">Usuario</label>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Ingrese Su Usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese Su Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<br>
+<br>
+<br>
+</html>
+
+
+
+
