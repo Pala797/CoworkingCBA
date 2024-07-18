@@ -11,35 +11,31 @@
     <br>
     
     <div class="container">
-  
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="mb-4">Crear Nueva cuenta</h2>
                 
                 <div class="registro-container">
-                    
                     <form (submit)="registro()">
                         <h5 class="mb-4">Ingrese Sus Datos</h5>
+                      
                         <div class="form-group">
-                            <label for="username">Nombre De Usuario</label>
-                            <input type="text" id="username" name="username" class="form-control" placeholder="Ingrese Su Usuario" required>
+                            <label for="email">Correo Electronico</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Ingrese Su Correo Electronico" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Correo Electronico</label>
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese Su Correo Electronico" required>
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese Su Nombre" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Apellido Y Nombre  </label>
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese Su Apellido y Su Nombre" required>
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Ingrese Su Apellido" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Contraseña</label>
                             <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese Su Contraseña" required>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Repetir Contraseña</label>
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Repita Su Contraseña" required>
-                        </div>
+                       
                         <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
                         <button type="info" class="btn btn-info btn-block"(click)="navigateToLogin()" >ya Tengo Cuenta</button>
                     </form>
@@ -52,7 +48,3 @@
 <br>
 <br>
 </html>
-
-
-
-
