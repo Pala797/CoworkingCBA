@@ -1,8 +1,9 @@
-// login.component.ts
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../service/auth/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
+
+  private loggedIn = false;
 
   login() {
     const email = (document.getElementById('email') as HTMLInputElement).value;
@@ -18,9 +21,16 @@ export class LoginComponent {
 
     this.http.post<any>('http://localhost:8000/api/login/', { email, password })
       .subscribe(
+
         response => {
-          alert('Inicio de sesión exitoso');
-          this.router.navigate(['/catalogo']);  
+          
+          localStorage.setItem('isLoggedIn', 'true');
+          
+         this.router.navigate(['/catalogo']).then(() => {
+    
+        });      alert('Inicio de sesión exitoso');
+        
+               this.authService.login2();
         },
         error => {
           alert('Usuario o contraseña incorrectos.');
@@ -33,4 +43,11 @@ export class LoginComponent {
   navigateToRegister() {
     this.router.navigate(['/registro']);
   }
+
+
+
 }
+
+
+
+
