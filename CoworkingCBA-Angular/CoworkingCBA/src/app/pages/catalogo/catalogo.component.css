@@ -23,7 +23,7 @@
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #333;
   flex: 1; 
@@ -46,4 +46,32 @@
 .btn-primary:hover {
   background-color: #a9c3c4; 
   border-color: #a9c3c4;
+}
+.cart-sidebar {
+  position: sticky;
+  top: 0;
+  width: 380px; 
+  max-height: 100vh; 
+  overflow-y: auto;
+  background-color: #e4f7f3; 
+  padding: 20px; 
+  border-left: 5px solid #60c797; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.425); 
+}
+
+/* Opcional: estilo para el título del carrito */
+.cart-sidebar h4 {
+  font-size: 1.4rem; /* Tamaño de fuente del título */
+  margin-bottom: 5px; /* Espaciado inferior */
+  color: #333; /* Color del texto del título */
+}
+
+/* Opcional: estilo para los elementos de la lista */
+.cart-sidebar ul {
+  padding-left: 0; /* Elimina el padding izquierdo predeterminado */
+}
+
+.cart-sidebar ul li {
+  border-bottom: 2px solid #ddd; /* Línea separadora entre elementos */
+  padding: 10px 0; /* Espaciado vertical en cada elemento */
 }

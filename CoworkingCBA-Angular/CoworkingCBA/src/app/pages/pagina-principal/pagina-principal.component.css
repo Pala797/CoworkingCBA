@@ -150,3 +150,14 @@ body, html {
   cursor: pointer;
   font-size: 20px; 
 }
+.titulo-texto {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #f07d11;
+  background-color: #f0f0f0;
+  padding: 12px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+

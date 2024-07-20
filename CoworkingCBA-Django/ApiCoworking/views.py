@@ -5,9 +5,15 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Usuario
+from .models import Sala
 from .serializers import UsuarioSerializer
 from .serializers import LoginSerializer
 import logging
+
+def catalogo_salas(request):
+    salas = Sala.objects.all()
+    data = list(salas.values('id', 'nombre_sala', 'capacidad', 'precio','imagen_url'))
+    return JsonResponse(data, safe=False)
 
 # Configura el logger para esta vista
 logger = logging.getLogger(__name__)
@@ -34,3 +40,5 @@ class LoginUsuario(APIView):
             return Response({'message': 'Inicio de sesión exitoso', 'user_id': user.id}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        
