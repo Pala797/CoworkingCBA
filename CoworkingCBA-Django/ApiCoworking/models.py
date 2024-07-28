@@ -52,8 +52,8 @@ class Sala(models.Model):
         return self.nombre_sala
 
 class Reserva(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    sala = models.ForeignKey('Sala', on_delete=models.CASCADE)
     dia_reservado = models.DateField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
 

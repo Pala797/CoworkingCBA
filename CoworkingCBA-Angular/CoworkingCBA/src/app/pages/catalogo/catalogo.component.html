@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Catálogo</title>
- 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>Catálogo</title>
 </head>
 <body>
-    <br>
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-                <div id="catalogo-container" class="row">
-                    <!-- Aquí se renderizará el catálogo de salas -->
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="cart-sidebar">
-                    <h4>Carrito de Compras</h4>
-                    <ul class="list-unstyled">
-                        <li>No hay artículos en el carrito.</li>
-                        <!-- Aquí puedes agregar los elementos del carrito dinámicamente -->
-                    </ul>
-                </div>
-            </div>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <div id="catalogo-container" class="row">
+          <!-- Aquí se renderizará el catálogo de salas -->
         </div>
+      </div>
+      <div class="col-md-2">
+        <div class="cart-sidebar">
+          <h4>Gestion De Reservas</h4>
+          <ul class="list-unstyled">
+            <!-- Aquí se renderizarán los elementos del carrito dinámicamente -->
+          </ul>
+        </div>
+        <div id="catalogo-container" class="row"></div>
+            <div class="cart-sidebar">
+            <ul></ul>
+            <div class="finalizar-reserva-container"></div> <!-- Contenedor para el botón de finalizar reserva -->
+            </div>
+      </div>
     </div>
+  </div>
 </body>
 </html>

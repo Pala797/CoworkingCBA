@@ -75,3 +75,13 @@
   border-bottom: 2px solid #ddd; /* Línea separadora entre elementos */
   padding: 10px 0; /* Espaciado vertical en cada elemento */
 }
+
+.cart-sidebar li button {
+  border: none;
+  background: none;
+  font-size: 18px;
+}
+.cart-sidebar li input[type="date"] {
+  margin-left: 10px;
+  width: auto;
+}

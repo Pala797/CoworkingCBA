@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     'ApiCoworking',
     'corsheaders',
     'rest_framework',
+    'rest_framework_simplejwt',
     'CoworkingcbaCRud',
 ]
 
@@ -42,6 +44,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+ 
 CORS_ALLOW_ALL_ORIGINS = True
 
 #CORS_ALLOWED_ORIGINS = [    "http://localhost:4200", ]

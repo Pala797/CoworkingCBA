@@ -12,26 +12,24 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   private baseUrl = 'http://localhost:8000/api';
 
-
-
-
-  
   register(user: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/registro`, user);
     
   }
 
   constructor(private http: HttpClient, private router: Router) {}
+
   logout() {
     localStorage.removeItem('isLoggedIn');
-    this.router.navigate(['/login']);  
+    localStorage.removeItem('usuarioId'); 
+    this.router.navigate(['/login']);
     this.loggedIn.next(false);
-
   
   }
   
 
   login2() {
+    
     localStorage.removeItem('isLoggedIn');
     this.router.navigate(['/catalogo']);  
     this.loggedIn.next(true);
