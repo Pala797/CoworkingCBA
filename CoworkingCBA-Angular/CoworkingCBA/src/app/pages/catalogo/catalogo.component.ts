@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-catalogo',
@@ -10,10 +10,14 @@ export class CatalogoComponent implements OnInit {
   salas: any[] = [];
   carrito: any = null;
   usuarioId: number | null = null;
+  reservas: any[] = [];
 
   constructor(private http: HttpClient, private renderer: Renderer2, private el: ElementRef) { }
+  private modalElement: HTMLElement | null = null;
+  private reservaTemporal: any = null; // Para almacenar los datos de la reserva temporalmente
 
   ngOnInit(): void {
+    this.modalElement = this.el.nativeElement.querySelector('#payment-modal');
     this.http.get<any[]>('http://localhost:8000/api/catalogo-salas/')
       .subscribe(data => {
         console.log('Datos recibidos desde el backend:', data);
@@ -31,7 +35,24 @@ export class CatalogoComponent implements OnInit {
       this.carrito = JSON.parse(carritoGuardado);
     }
 
+    if (this.usuarioId) {
+      this.obtenerReservas(); // Llama a la función para obtener las reservas del usuario
+    }
+
     this.renderCarrito();
+  }
+
+  private obtenerReservas(): void {
+    if (this.usuarioId) {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');
+      this.http.get<any[]>(`http://localhost:8000/api/obtener_reservas/?usuario_id=${this.usuarioId}`, { headers: headers })
+        .subscribe(data => {
+          this.reservas = data;
+          this.renderCarrito(); // Renderiza el carrito incluyendo las reservas
+        }, error => {
+          console.error('Error al obtener las reservas:', error);
+        });
+    }
   }
 
   private renderCatalogo(): void {
@@ -155,11 +176,54 @@ export class CatalogoComponent implements OnInit {
       this.renderer.addClass(finalizarButton, 'btn');
       this.renderer.addClass(finalizarButton, 'btn-success');
       this.renderer.addClass(finalizarButton, 'mt-3');
-      this.renderer.setProperty(finalizarButton, 'textContent', 'Finalizar Reserva');
+      this.renderer.setProperty(finalizarButton, 'textContent', ' Reservar Sala');
       this.renderer.listen(finalizarButton, 'click', () => this.finalizarReserva());
       this.renderer.appendChild(finalizarButtonContainer, finalizarButton);
     }
+
+    this.renderReservas(carritoContainer); // Renderiza las reservas
   }
+  
+
+ private renderReservas(container: any): void {
+  const reservasContainer = this.renderer.createElement('ul');
+  this.renderer.setProperty(reservasContainer, 'innerHTML', '');
+  const title = this.renderer.createElement('h5');
+  this.renderer.setProperty(title, 'textContent', 'Reservas Realizadas');
+  this.renderer.addClass(title, 'mb-4');
+  this.renderer.setStyle(title, 'marginTop', '20px');
+  this.renderer.appendChild(container, title);
+  if (this.reservas.length === 0) {
+    const noReservasMessage = this.renderer.createElement('li');
+    this.renderer.setProperty(noReservasMessage, 'textContent', 'No tienes reservas.');
+    this.renderer.appendChild(reservasContainer, noReservasMessage);
+  } else {
+    this.reservas.forEach(reserva => {
+      const sala = this.salas.find(sala => sala.id === reserva.sala_id);
+      const nombreSala = sala ? sala.nombre_sala : 'Sala desconocida';
+
+      const reservaItem = this.renderer.createElement('li');
+      this.renderer.addClass(reservaItem, 'mb-2'); // Añade un margen inferior para separar las reservas
+
+      const nombreSalaDiv = this.renderer.createElement('div');
+      this.renderer.setProperty(nombreSalaDiv, 'textContent', `Usted tendra Disponible La ${nombreSala}`);
+      this.renderer.appendChild(reservaItem, nombreSalaDiv);
+
+      const fechaReservaDiv = this.renderer.createElement('div');
+      this.renderer.setProperty(fechaReservaDiv, 'textContent', ` Fecha Reserva: ${reserva.dia_reservado}`);
+      this.renderer.appendChild(reservaItem, fechaReservaDiv);
+
+      const precioDiv = this.renderer.createElement('div');
+      this.renderer.setProperty(precioDiv, 'textContent', `Precio Final: $${reserva.precio}`);
+      this.renderer.appendChild(reservaItem, precioDiv);
+
+      this.renderer.appendChild(reservasContainer, reservaItem);
+    });
+  }
+
+  this.renderer.appendChild(container, reservasContainer);
+}
+
 
   private actualizarDiaReserva(dia: string): void {
     this.carrito.dia_reservado = dia;
@@ -167,40 +231,9 @@ export class CatalogoComponent implements OnInit {
   }
 
   private finalizarReserva(): void {
-    if (!this.usuarioId) {
-      alert('Usuario no autenticado');
-      return;
-    }
-  
-    if (!this.carrito.dia_reservado) {
-      alert('Por favor, seleccione una fecha para la reserva.');
-      return;
-    }
-  
-    const reserva = {
-      dia_reservado: this.carrito.dia_reservado,
-      precio: this.carrito.precio,
-      sala_id: this.carrito.id,
-      usuario_id: this.usuarioId
-    };
-  
-    console.log('Datos de reserva a enviar:', reserva);
-  
-    this.http.post('http://localhost:8000/api/reservar/', reserva)
-      .subscribe(response => {
-        console.log('Reserva guardada:', response);
-        alert('Reserva guardada exitosamente');
-        this.carrito = null;
-        this.actualizarCarrito();
-      }, error => {
-        console.error('Error al guardar la reserva:', error);
-        alert('Error al guardar la reserva');
-      });
+    this.abrirModal();
   }
-  
-  
-  
-  
+
   private getTodayDate(): string {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -208,4 +241,74 @@ export class CatalogoComponent implements OnInit {
     const dd = String(today.getDate()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}`;
   }
+  confirmarReserva(): void {
+    if (!this.usuarioId) {
+      alert('Usuario no autenticado');
+      this.cerrarModal();
+      return;
+    }
+
+    if (!this.carrito.dia_reservado) {
+      alert('Por favor, seleccione una fecha para la reserva.');
+      this.cerrarModal();
+      return;
+    }
+
+    // Obtener datos de la tarjeta desde el modal
+    const cardNumber = (this.el.nativeElement.querySelector('#cardNumber') as HTMLInputElement).value;
+    const cardExpiry = (this.el.nativeElement.querySelector('#cardExpiry') as HTMLInputElement).value;
+    const cardCvc = (this.el.nativeElement.querySelector('#cardCvc') as HTMLInputElement).value;
+
+    // Validar los datos de la tarjeta (simulación)
+    if (!cardNumber || !cardExpiry || !cardCvc) {
+      alert('Por favor, complete todos los campos de datos de la tarjeta.');
+      this.cerrarModal();
+      return;
+    }
+
+    console.log(`Datos de la tarjeta: ${cardNumber}, ${cardExpiry}, ${cardCvc}`);
+
+    // Simular procesamiento del pago
+    this.procesarPago('tarjeta');
+
+    const reserva = {
+      dia_reservado: this.carrito.dia_reservado,
+      precio: this.carrito.precio,
+      sala_id: this.carrito.id,
+      usuario_id: this.usuarioId
+    };
+
+    console.log('Datos de reserva a enviar:', reserva);
+
+    this.http.post('http://localhost:8000/api/reservar/', reserva)
+      .subscribe(response => {
+        console.log('Reserva guardada:', response);
+        alert('Reserva guardada exitosamente');
+        this.carrito = null;
+        this.obtenerReservas(); // Llama a la función para obtener las reservas actualizadas
+        this.cerrarModal(); // Cierra el modal después de confirmar la reserva
+      }, error => {
+        console.error('Error al guardar la reserva:', error);
+        alert('Error al guardar la reserva');
+        this.cerrarModal(); // Cierra el modal en caso de error
+      });
+  }
+
+   abrirModal(): void {
+    if (this.modalElement) {
+      this.renderer.setStyle(this.modalElement, 'display', 'block');
+    }
+  }
+
+   cerrarModal(): void {
+    if (this.modalElement) {
+      this.renderer.setStyle(this.modalElement, 'display', 'none');
+    }
+  }
+
+   procesarPago(metodo: string): void {
+    console.log(`Procesando pago con ${metodo}`);
+    // Aquí puedes simular el procesamiento del pago.
+  }
+
 }

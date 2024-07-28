@@ -1,6 +1,6 @@
 # views.py
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from rest_framework.response import Response
@@ -67,3 +67,15 @@ def reservar(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+@api_view(['GET'])
+
+def obtener_reservas(request):
+    usuario_id = request.query_params.get('usuario_id')
+    if not usuario_id:
+        return Response({"error": "usuario_id es requerido"}, status=400)
+
+    reservas = Reserva.objects.filter(usuario_id=usuario_id)
+    serializer = ReservaSerializer(reservas, many=True)
+    return Response(serializer.data)

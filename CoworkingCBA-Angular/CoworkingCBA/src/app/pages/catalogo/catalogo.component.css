@@ -85,3 +85,93 @@
   margin-left: 10px;
   width: auto;
 }
+
+
+.modal {
+  display: none; /* Ocultar el modal por defecto */
+  position: fixed;
+  z-index: 1050;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
+  transition: opacity 0.3s ease;
+}
+
+/* Estilos para el diálogo del modal */
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 5vh auto; /* Centrar verticalmente y horizontalmente */
+  max-width: 40%;
+  max-height: 30%;
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  border: none;
+  border-radius: .5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Estilos para la cabecera del modal */
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #d7eee1;
+  background-color: #d7eee1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Estilos para el cuerpo del modal */
+.modal-body {
+  padding: 1.5rem;
+}
+
+/* Estilos para el pie del modal */
+.modal-footer {
+  padding: 1.5rem;
+  border-top: 1px solid #d7eee1;
+  background-color: #e2e9e5;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Botones del modal */
+.modal-footer .btn {
+  margin-left: 0.5rem;
+}
+
+/* Animación de entrada del modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilo para el botón de cerrar */
+.close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #000;
+}
+
+.close:hover {
+  color: #dc3545;
+}
+
