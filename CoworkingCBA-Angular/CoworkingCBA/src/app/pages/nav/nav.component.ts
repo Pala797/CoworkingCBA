@@ -1,4 +1,4 @@
-import { Component ,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../service/auth/auth.service';
@@ -8,9 +8,9 @@ import { AuthService } from '../../../service/auth/auth.service';
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './nav.component.html',
-  styleUrl: './nav.component.css'
+  styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit  {
+export class NavComponent implements OnInit {
 
   isLoggedIn = false;
 
@@ -22,13 +22,7 @@ export class NavComponent implements OnInit  {
     });
   }
 
-
   logout() {
     this.authService.logout();
-
-    
-  
   }
- 
-  
 }

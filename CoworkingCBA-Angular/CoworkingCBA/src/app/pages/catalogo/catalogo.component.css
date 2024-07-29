@@ -27,12 +27,15 @@
   font-weight: bold;
   color: #333;
   flex: 1; 
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 }
 
 .card-text {
-  color: #666;
+  color: #023a2c;
+  font-size: 0.8rem;
   flex: 1; 
+  font-weight: bold;
+  margin-right: 0.5rem;
 }
 
 .btn-primary {
@@ -41,6 +44,7 @@
   color: #333; 
   margin-left: auto;
   transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .btn-primary:hover {
@@ -59,21 +63,21 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.425); 
 }
 
-/* Opcional: estilo para el título del carrito */
+
 .cart-sidebar h4 {
-  font-size: 1.4rem; /* Tamaño de fuente del título */
-  margin-bottom: 5px; /* Espaciado inferior */
-  color: #333; /* Color del texto del título */
+  font-size: 1.4rem; 
+  margin-bottom: 5px; 
+  color: #333; 
 }
 
-/* Opcional: estilo para los elementos de la lista */
+
 .cart-sidebar ul {
-  padding-left: 0; /* Elimina el padding izquierdo predeterminado */
+  padding-left: 0; 
 }
 
 .cart-sidebar ul li {
-  border-bottom: 2px solid #ddd; /* Línea separadora entre elementos */
-  padding: 10px 0; /* Espaciado vertical en cada elemento */
+  border-bottom: 2px solid #ddd; 
+  padding: 10px 0; 
 }
 
 .cart-sidebar li button {
@@ -88,7 +92,7 @@
 
 
 .modal {
-  display: none; /* Ocultar el modal por defecto */
+  display: none; 
   position: fixed;
   z-index: 1050;
   left: 0;
@@ -97,33 +101,33 @@
   height: 100%;
   overflow: auto;
   outline: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
+  background-color: rgba(0, 0, 0, 0.5); 
   transition: opacity 0.3s ease;
 }
 
-/* Estilos para el diálogo del modal */
+
 .modal-dialog {
   position: relative;
   width: auto;
-  margin: 5vh auto; /* Centrar verticalmente y horizontalmente */
+  margin: 5vh auto; 
   max-width: 40%;
   max-height: 30%;
 }
 
-/* Estilos para el contenido del modal */
+
 .modal-content {
   position: relative;
   background-color: #fff;
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.4rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   animation: fadeIn 0.3s ease;
 }
 
-/* Estilos para la cabecera del modal */
+
 .modal-header {
-  padding: 1.5rem;
+  padding: 0.2rem;
   border-bottom: 1px solid #d7eee1;
   background-color: #d7eee1;
   display: flex;
@@ -131,26 +135,25 @@
   align-items: center;
 }
 
-/* Estilos para el cuerpo del modal */
-.modal-body {
-  padding: 1.5rem;
-}
 
-/* Estilos para el pie del modal */
+.modal-body {
+  padding: 1.0rem;
+}
+.modal-title {
+  padding: 1.0rem;
+}
 .modal-footer {
-  padding: 1.5rem;
+  padding: 0.2rem;
   border-top: 1px solid #d7eee1;
   background-color: #e2e9e5;
   display: flex;
   justify-content: flex-end;
 }
 
-/* Botones del modal */
 .modal-footer .btn {
   margin-left: 0.5rem;
 }
 
-/* Animación de entrada del modal */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -162,13 +165,13 @@
   }
 }
 
-/* Estilo para el botón de cerrar */
+
 .close {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
+
+  font-size: 2.5rem;
   cursor: pointer;
-  color: #000;
+  color: #5c1104;
+
 }
 
 .close:hover {

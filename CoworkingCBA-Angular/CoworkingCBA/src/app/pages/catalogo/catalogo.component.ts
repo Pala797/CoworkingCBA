@@ -55,61 +55,71 @@ export class CatalogoComponent implements OnInit {
     }
   }
 
-  private renderCatalogo(): void {
-    const container = this.el.nativeElement.querySelector('#catalogo-container');
-    this.renderer.setProperty(container, 'innerHTML', '');
+private renderCatalogo(): void {
+  const container = this.el.nativeElement.querySelector('#catalogo-container');
+  this.renderer.setProperty(container, 'innerHTML', '');
 
-    if (this.salas.length === 0) {
-      const noData = this.renderer.createElement('p');
-      this.renderer.setProperty(noData, 'textContent', 'No hay salas disponibles.');
-      this.renderer.appendChild(container, noData);
-      return;
-    }
-
-    this.salas.forEach(sala => {
-      const cardDiv = this.renderer.createElement('div');
-      this.renderer.addClass(cardDiv, 'col-md-6');
-      this.renderer.addClass(cardDiv, 'mb-4');
-      this.renderer.addClass(cardDiv, 'card');
-
-      const img = this.renderer.createElement('img');
-      this.renderer.setAttribute(img, 'src', sala.imagen_url);
-      this.renderer.addClass(img, 'card-img-top');
-      this.renderer.setAttribute(img, 'alt', sala.nombre_sala);
-
-      const cardBody = this.renderer.createElement('div');
-      this.renderer.addClass(cardBody, 'card-body');
-
-      const title = this.renderer.createElement('h3');
-      this.renderer.addClass(title, 'card-title');
-      this.renderer.setProperty(title, 'textContent', sala.nombre_sala);
-
-      const text = this.renderer.createElement('p');
-      this.renderer.addClass(text, 'card-text');
-      this.renderer.setProperty(text, 'textContent', `Por Día: $${sala.precio}`);
-
-      const capacity = this.renderer.createElement('p');
-      this.renderer.addClass(capacity, 'card-text');
-      this.renderer.setProperty(capacity, 'textContent', `Capacidad: ${sala.capacidad} personas`);
-
-      const button = this.renderer.createElement('button');
-      this.renderer.addClass(button, 'btn');
-      this.renderer.addClass(button, 'btn-primary');
-      this.renderer.addClass(button, 'btn-sm');
-      this.renderer.setProperty(button, 'textContent', 'Seleccionar');
-      this.renderer.listen(button, 'click', () => this.agregarAlCarrito(sala));
-
-      this.renderer.appendChild(cardBody, title);
-      this.renderer.appendChild(cardBody, text);
-      this.renderer.appendChild(cardBody, capacity);
-      this.renderer.appendChild(cardBody, button);
-
-      this.renderer.appendChild(cardDiv, img);
-      this.renderer.appendChild(cardDiv, cardBody);
-
-      this.renderer.appendChild(container, cardDiv);
-    });
+  if (this.salas.length === 0) {
+    const noData = this.renderer.createElement('p');
+    this.renderer.addClass(noData, 'text-center');
+    this.renderer.addClass(noData, 'text-muted');
+    this.renderer.setProperty(noData, 'textContent', 'No hay salas disponibles.');
+    this.renderer.appendChild(container, noData);
+    return;
   }
+
+  const row = this.renderer.createElement('div');
+  this.renderer.addClass(row, 'row');
+  this.renderer.appendChild(container, row);
+
+  this.salas.forEach(sala => {
+    const colDiv = this.renderer.createElement('div');
+    this.renderer.addClass(colDiv, 'col-md-6');
+    this.renderer.addClass(colDiv, 'mb-4');
+    this.renderer.appendChild(row, colDiv);
+
+    const cardDiv = this.renderer.createElement('div');
+    this.renderer.addClass(cardDiv, 'card');
+    this.renderer.addClass(cardDiv, 'shadow-sm');
+
+    const img = this.renderer.createElement('img');
+    this.renderer.setAttribute(img, 'src', sala.imagen_url);
+    this.renderer.addClass(img, 'card-img-top');
+    this.renderer.setAttribute(img, 'alt', sala.nombre_sala);
+
+    const cardBody = this.renderer.createElement('div');
+    this.renderer.addClass(cardBody, 'card-body');
+
+    const title = this.renderer.createElement('h5');
+    this.renderer.addClass(title, 'card-title');
+    this.renderer.setProperty(title, 'textContent', sala.nombre_sala);
+
+    const text = this.renderer.createElement('p');
+    this.renderer.addClass(text, 'card-text');
+    this.renderer.setProperty(text, 'textContent', `Precio Por Dia: $${sala.precio}`);
+
+    const capacity = this.renderer.createElement('p');
+    this.renderer.addClass(capacity, 'card-text');
+    this.renderer.setProperty(capacity, 'textContent', `Capacidad: ${sala.capacidad} personas`);
+
+    const button = this.renderer.createElement('button');
+    this.renderer.addClass(button, 'btn');
+    this.renderer.addClass(button, 'btn-primary');
+    this.renderer.setProperty(button, 'textContent', 'Seleccionar');
+    this.renderer.listen(button, 'click', () => this.agregarAlCarrito(sala));
+
+    this.renderer.appendChild(cardBody, title);
+    this.renderer.appendChild(cardBody, text);
+    this.renderer.appendChild(cardBody, capacity);
+    this.renderer.appendChild(cardBody, button);
+
+    this.renderer.appendChild(cardDiv, img);
+    this.renderer.appendChild(cardDiv, cardBody);
+
+    this.renderer.appendChild(colDiv, cardDiv);
+  });
+}
+
 
   private agregarAlCarrito(sala: any): void {
     const reserva = {
@@ -203,14 +213,22 @@ export class CatalogoComponent implements OnInit {
       const nombreSala = sala ? sala.nombre_sala : 'Sala desconocida';
 
       const reservaItem = this.renderer.createElement('li');
-      this.renderer.addClass(reservaItem, 'mb-2'); // Añade un margen inferior para separar las reservas
+      this.renderer.addClass(reservaItem, 'mb-2');
 
       const nombreSalaDiv = this.renderer.createElement('div');
       this.renderer.setProperty(nombreSalaDiv, 'textContent', `Usted tendra Disponible La ${nombreSala}`);
       this.renderer.appendChild(reservaItem, nombreSalaDiv);
 
       const fechaReservaDiv = this.renderer.createElement('div');
-      this.renderer.setProperty(fechaReservaDiv, 'textContent', ` Fecha Reserva: ${reserva.dia_reservado}`);
+     
+      const date = new Date(reserva.dia_reservado);
+          
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); 
+      const year = date.getFullYear();
+      const formattedDate = `${day}/${month}/${year}`;
+      
+      this.renderer.setProperty(fechaReservaDiv, 'textContent', `Fecha Reserva: ${formattedDate}`);
       this.renderer.appendChild(reservaItem, fechaReservaDiv);
 
       const precioDiv = this.renderer.createElement('div');

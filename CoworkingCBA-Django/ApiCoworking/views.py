@@ -20,7 +20,6 @@ def catalogo_salas(request):
     data = list(salas.values('id', 'nombre_sala', 'capacidad', 'precio','imagen_url'))
     return JsonResponse(data, safe=False)
 
-# Configura el logger para esta vista
 logger = logging.getLogger(__name__)
 
 class RegistroUsuario(APIView):

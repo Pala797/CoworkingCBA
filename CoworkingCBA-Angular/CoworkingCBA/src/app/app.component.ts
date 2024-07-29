@@ -7,10 +7,9 @@ import { FooterComponent } from './pages/footer/footer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PaginaPrincipalComponent,NavComponent,FooterComponent],
+  imports: [RouterOutlet, PaginaPrincipalComponent, NavComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'CoworkingCBA';

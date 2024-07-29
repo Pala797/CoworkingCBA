@@ -35,7 +35,7 @@ export class RegistroComponent {
       }
     );
 
-    return false; // Evita que el formulario se envíe realmente
+    return false; 
   }
 
   navigateToLogin() {

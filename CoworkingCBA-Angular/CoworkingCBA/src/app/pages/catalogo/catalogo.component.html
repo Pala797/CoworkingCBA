@@ -16,52 +16,59 @@
     <div class="row">
       <div class="col-md-10">
         <div id="catalogo-container" class="row">
-          <!-- Aquí se renderizará el catálogo de salas -->
         </div>
-  <!-- Modal para simulación de pago -->
-<!-- Modal para simulación de pago -->
-<div id="payment-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Simulación de Pago</h5>
-        <button type="button" class="close" (click)="cerrarModal()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p>Ingrese los datos de la tarjeta:</p>
-        <div class="form-group">
-          <label for="cardNumber">Número de Tarjeta:</label>
-          <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9123 4567">
+        <div id="payment-modal" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"> Ingrese los datos de la tarjeta  </h5>
+                <div class="text-center my-3">
+                  <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" alt="MasterCard" class="mx-2">
+                  <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" class="mx-2">
+                  <img src="https://img.icons8.com/color/48/000000/amex.png" alt="American Express" class="mx-2">
+                </div>
+                <button type="button" class="close" (click)="cerrarModal()">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="cardType">Tipo de Tarjeta:</label>
+                  <select id="cardType" class="form-control">
+                    <option value="credito">Crédito</option>
+                    <option value="debito">Débito</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="cardHolder">Nombre del Titular:</label>
+                  <input type="text" id="cardHolder" class="form-control" placeholder="Nombre del Titular">
+                </div>
+                <div class="form-group">
+                  <label for="cardNumber">Número de Tarjeta:</label>
+                  <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9123 4567">
+                </div>
+                <div class="form-group">
+                  <label for="cardExpiry">Fecha de Expiración:</label>
+                  <input type="text" id="cardExpiry" class="form-control" placeholder="MM/AA">
+                </div>
+                <div class="form-group">
+                  <label for="cardCvc">CVC:</label>
+                  <input type="text" id="cardCvc" class="form-control" placeholder="123">
+                </div>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button type="button" class="btn btn-info" (click)="confirmarReserva()">Finalizar Reserva</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="cardExpiry">Fecha de Expiración:</label>
-          <input type="text" id="cardExpiry" class="form-control" placeholder="MM/AA">
-        </div>
-        <div class="form-group">
-          <label for="cardCvc">CVC:</label>
-          <input type="text" id="cardCvc" class="form-control" placeholder="123">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
-        <button type="button" class="btn btn-info" (click)="confirmarReserva()">Finalizar Reserva</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
       </div>
       <div class="col-md-2">
         <div class="cart-sidebar">
           <h4>Gestion De Reservas</h4>
           <ul class="list-unstyled" >
-            <!-- Aquí se renderizarán los elementos del carrito dinámicamente -->
-          </ul>   <div class="finalizar-reserva-container"></div>     
-
-          
+          </ul>   <div class="finalizar-reserva-container"></div>               
             <ul></ul>
-            <!-- Contenedor para el botón de finalizar reserva -->
             </div>
       </div>     
       

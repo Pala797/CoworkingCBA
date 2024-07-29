@@ -23,18 +23,19 @@
             <a class="nav-link" routerLink="/catalogo" routerLinkActive="active"><i class="fa fa-list"></i> Catálogo</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
-            <a class="nav-link"  (click)="logout()" routerLink="/login" ><i class="fa fa-sign-out"></i> Cerrar Sesión</a>
+            <a class="nav-link" (click)="logout()" routerLink="/login"><i class="fa fa-sign-out"></i> Cerrar Sesión</a>
           </li>
           <li class="nav-item" *ngIf="!isLoggedIn">
             <a class="nav-link" routerLink="/registro"><i class="fa fa-user-plus"></i> Registrarse</a>
           </li>
-          <li class="nav-item" *ngIf="!isLoggedIn" >
-            <a class="nav-link"  routerLink="/login"><i class="fa fa-sign-in"></i> Login</a>
+          <li class="nav-item" *ngIf="!isLoggedIn">
+            <a class="nav-link" routerLink="/login"><i class="fa fa-sign-in"></i> Login</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  
   
 
       
