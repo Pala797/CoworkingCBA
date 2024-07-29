@@ -58,9 +58,6 @@ class LoginUsuario(APIView):
 @api_view(['POST'])
 def reservar(request):
     data = request.data.copy()
-    # No se necesita validar el token de usuario
-    # data['usuario_id'] = request.user.id  # Eliminado
-
     serializer = ReservaSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
@@ -79,3 +76,4 @@ def obtener_reservas(request):
     reservas = Reserva.objects.filter(usuario_id=usuario_id)
     serializer = ReservaSerializer(reservas, many=True)
     return Response(serializer.data)
+

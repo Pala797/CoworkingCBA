@@ -241,6 +241,7 @@ export class CatalogoComponent implements OnInit {
     const dd = String(today.getDate()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}`;
   }
+
   confirmarReserva(): void {
     if (!this.usuarioId) {
       alert('Usuario no autenticado');
@@ -262,7 +263,6 @@ export class CatalogoComponent implements OnInit {
     // Validar los datos de la tarjeta (simulación)
     if (!cardNumber || !cardExpiry || !cardCvc) {
       alert('Por favor, complete todos los campos de datos de la tarjeta.');
-      this.cerrarModal();
       return;
     }
 
@@ -289,10 +289,15 @@ export class CatalogoComponent implements OnInit {
         this.cerrarModal(); // Cierra el modal después de confirmar la reserva
       }, error => {
         console.error('Error al guardar la reserva:', error);
-        alert('Error al guardar la reserva');
+        if (error.status === 400 && error.error.non_field_errors) {
+          alert(error.error.non_field_errors[0]);
+        } else {
+          alert('Error al guardar la reserva');
+        }
         this.cerrarModal(); // Cierra el modal en caso de error
       });
   }
+
 
    abrirModal(): void {
     if (this.modalElement) {

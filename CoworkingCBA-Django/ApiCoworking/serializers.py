@@ -30,6 +30,9 @@ class LoginSerializer(serializers.Serializer):
         else:
             raise serializers.ValidationError("Debe proporcionar un correo electrónico y contraseña.")
     
+from rest_framework import serializers
+from .models import Reserva
+
 class ReservaSerializer(serializers.ModelSerializer):
     usuario_id = serializers.IntegerField()  # Asegúrate de incluir usuario_id como campo explícito
     sala_id = serializers.IntegerField()  # Asegúrate de incluir sala_id como campo explícito
@@ -37,6 +40,16 @@ class ReservaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reserva
         fields = ['usuario_id', 'sala_id', 'dia_reservado', 'precio']
+
+    def validate(self, data):
+        sala_id = data.get('sala_id')
+        dia_reservado = data.get('dia_reservado')
+
+        # Verificar si ya existe una reserva para la misma sala en el mismo día
+        if Reserva.objects.filter(sala_id=sala_id, dia_reservado=dia_reservado).exists():
+            raise serializers.ValidationError("Esta sala no esta disponible para la fecha seleccionada.")
+        
+        return data
 
     def create(self, validated_data):
         usuario_id = validated_data.pop('usuario_id')
