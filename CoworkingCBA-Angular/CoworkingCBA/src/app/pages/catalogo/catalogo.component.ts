@@ -14,7 +14,7 @@ export class CatalogoComponent implements OnInit {
 
   constructor(private http: HttpClient, private renderer: Renderer2, private el: ElementRef) { }
   private modalElement: HTMLElement | null = null;
-  private reservaTemporal: any = null; // Para almacenar los datos de la reserva temporalmente
+  private reservaTemporal: any = null; 
 
   ngOnInit(): void {
     this.modalElement = this.el.nativeElement.querySelector('#payment-modal');
@@ -36,7 +36,7 @@ export class CatalogoComponent implements OnInit {
     }
 
     if (this.usuarioId) {
-      this.obtenerReservas(); // Llama a la función para obtener las reservas del usuario
+      this.obtenerReservas(); 
     }
 
     this.renderCarrito();
@@ -48,7 +48,7 @@ export class CatalogoComponent implements OnInit {
       this.http.get<any[]>(`http://localhost:8000/api/obtener_reservas/?usuario_id=${this.usuarioId}`, { headers: headers })
         .subscribe(data => {
           this.reservas = data;
-          this.renderCarrito(); // Renderiza el carrito incluyendo las reservas
+          this.renderCarrito(); 
         }, error => {
           console.error('Error al obtener las reservas:', error);
         });
@@ -191,7 +191,7 @@ private renderCatalogo(): void {
       this.renderer.appendChild(finalizarButtonContainer, finalizarButton);
     }
 
-    this.renderReservas(carritoContainer); // Renderiza las reservas
+    this.renderReservas(carritoContainer); 
   }
   
 
@@ -273,12 +273,11 @@ private renderCatalogo(): void {
       return;
     }
 
-    // Obtener datos de la tarjeta desde el modal
     const cardNumber = (this.el.nativeElement.querySelector('#cardNumber') as HTMLInputElement).value;
     const cardExpiry = (this.el.nativeElement.querySelector('#cardExpiry') as HTMLInputElement).value;
     const cardCvc = (this.el.nativeElement.querySelector('#cardCvc') as HTMLInputElement).value;
 
-    // Validar los datos de la tarjeta (simulación)
+
     if (!cardNumber || !cardExpiry || !cardCvc) {
       alert('Por favor, complete todos los campos de datos de la tarjeta.');
       return;
@@ -286,7 +285,6 @@ private renderCatalogo(): void {
 
     console.log(`Datos de la tarjeta: ${cardNumber}, ${cardExpiry}, ${cardCvc}`);
 
-    // Simular procesamiento del pago
     this.procesarPago('tarjeta');
 
     const reserva = {
@@ -303,8 +301,8 @@ private renderCatalogo(): void {
         console.log('Reserva guardada:', response);
         alert('Reserva guardada exitosamente');
         this.carrito = null;
-        this.obtenerReservas(); // Llama a la función para obtener las reservas actualizadas
-        this.cerrarModal(); // Cierra el modal después de confirmar la reserva
+        this.obtenerReservas(); 
+        this.cerrarModal(); 
       }, error => {
         console.error('Error al guardar la reserva:', error);
         if (error.status === 400 && error.error.non_field_errors) {
@@ -312,7 +310,7 @@ private renderCatalogo(): void {
         } else {
           alert('Error al guardar la reserva');
         }
-        this.cerrarModal(); // Cierra el modal en caso de error
+        this.cerrarModal(); 
       });
   }
 
@@ -331,7 +329,7 @@ private renderCatalogo(): void {
 
    procesarPago(metodo: string): void {
     console.log(`Procesando pago con ${metodo}`);
-    // Aquí puedes simular el procesamiento del pago.
+    
   }
 
 }
