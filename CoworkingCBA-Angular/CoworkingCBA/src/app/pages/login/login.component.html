@@ -21,8 +21,8 @@
                     <form (submit)="login()">
                         <h5 class="mb-4">Ingrese Sus Datos</h5>
                         <div class="form-group">
-                            <label for="username">Usuario</label>
-                            <input type="text" id="username" name="username" class="form-control" placeholder="Ingrese Su Usuario" required>
+                            <label for="username">Correo Electronico</label>
+                            <input type="text" id="email" name="email" class="form-control" placeholder="Ingrese Su Correo Electronico" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Contraseña</label>
@@ -30,6 +30,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                         <button type="info" class="btn btn-info btn-block"(click)="navigateToRegister()" >Registrarse</button>
+                 
                     </form>
 
                 </div>

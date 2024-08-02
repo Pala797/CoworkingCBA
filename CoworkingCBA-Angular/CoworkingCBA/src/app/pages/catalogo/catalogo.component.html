@@ -1,65 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Catalogo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>Catálogo</title>
 </head>
 <body>
-    <div class="container">
-        <h2 class="mt-5 mb-4 text-center">Nuestras Oficinas para Reuniones</h2>
-      
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <img src="https://www.kemueble.com/sac_images/productos/estacion-de-trabajo-para-2-personas-v4_0003.webp" class="card-img-top" alt="Oficina para 2 personas">
-              <div class="card-body">
-                <h5 class="card-title">Oficina para 2 personas</h5>
-                <p class="card-text">  Día completo: $5.200</p>
-                <a href="#" class="btn btn-primary">Ver detalles</a>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <div id="catalogo-container" class="row">
+        </div>
+        <div id="payment-modal" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"> Ingrese los datos de la tarjeta  </h5>
+                <div class="text-center my-3">
+                  <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" alt="MasterCard" class="mx-2">
+                  <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" class="mx-2">
+                  <img src="https://img.icons8.com/color/48/000000/amex.png" alt="American Express" class="mx-2">
+                </div>
+                <button type="button" class="close" (click)="cerrarModal()">&times;</button>
               </div>
-            </div>
-          </div>
-      
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <img src="https://www.livitum.com/moderna-oficina-para-cinco-personas/1790/render/tt_2025_101663.jpg" class="card-img-top" alt="Oficina para 5 personas">
-              <div class="card-body">
-                <h5 class="card-title">Oficina para 5 personas</h5>
-                <p class="card-text">Día completo: $7.400</p>
-                <a href="#" class="btn btn-primary">Ver detalles</a>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="cardType">Tipo de Tarjeta:</label>
+                  <select id="cardType" class="form-control">
+                    <option value="credito">Crédito</option>
+                    <option value="debito">Débito</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="cardHolder">Nombre del Titular:</label>
+                  <input type="text" id="cardHolder" class="form-control" placeholder="Nombre del Titular">
+                </div>
+                <div class="form-group">
+                  <label for="cardNumber">Número de Tarjeta:</label>
+                  <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9123 4567">
+                </div>
+                <div class="form-group">
+                  <label for="cardExpiry">Fecha de Expiración:</label>
+                  <input type="text" id="cardExpiry" class="form-control" placeholder="MM/AA">
+                </div>
+                <div class="form-group">
+                  <label for="cardCvc">CVC:</label>
+                  <input type="text" id="cardCvc" class="form-control" placeholder="123">
+                </div>
+                
               </div>
-            </div>
-          </div>
-      
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <img src="https://s3.pagegear.co/416/articulos/59517/39414_1200x627.jpg?2271392" class="card-img-top" alt="Oficina para 8 personas">
-              <div class="card-body">
-                <h5 class="card-title">Oficina para 8 personas</h5>
-                <p class="card-text"> Día completo: $10.500</p>
-                <a href="#" class="btn btn-primary">Ver detalles</a>
-              </div>
-            </div>
-          </div>
-      
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <img src="https://image.made-in-china.com/318f0j00vakTybcnLBVC/%E4%BC%9A%E8%AE%AE%E6%A1%8C%E8%A7%86%E9%A2%91.mp4.webp" class="card-img-top" alt="Oficina para 12 personas">
-              <div class="card-body">
-                <h5 class="card-title">Oficina para 12 personas</h5>
-                <p class="card-text"> <br> Día completo: $13.500</p>
-                <a href="#" class="btn btn-primary">Ver detalles</a>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button type="button" class="btn btn-info" (click)="confirmarReserva()">Finalizar Reserva</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-    <!-- Bootstrap JS y dependencias opcionales -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <div class="col-md-2">
+        <div class="cart-sidebar">
+          <h4>Gestion De Reservas</h4>
+          <ul class="list-unstyled" >
+          </ul>   <div class="finalizar-reserva-container"></div>               
+            <ul></ul>
+            </div>
+      </div>     
+      
+    </div>
+  </div>
 </body>
+
 </html>
