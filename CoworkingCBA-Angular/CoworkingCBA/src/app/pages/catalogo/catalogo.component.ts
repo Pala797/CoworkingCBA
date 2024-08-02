@@ -41,7 +41,7 @@ export class CatalogoComponent implements OnInit {
 
     this.renderCarrito();
   }
-
+ 
   private obtenerReservas(): void {
     if (this.usuarioId) {
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -195,53 +195,84 @@ private renderCatalogo(): void {
   }
   
 
- private renderReservas(container: any): void {
-  const reservasContainer = this.renderer.createElement('ul');
-  this.renderer.setProperty(reservasContainer, 'innerHTML', '');
-  const title = this.renderer.createElement('h5');
-  this.renderer.setProperty(title, 'textContent', 'Reservas Realizadas');
-  this.renderer.addClass(title, 'mb-4');
-  this.renderer.setStyle(title, 'marginTop', '20px');
-  this.renderer.appendChild(container, title);
-  if (this.reservas.length === 0) {
-    const noReservasMessage = this.renderer.createElement('li');
-    this.renderer.setProperty(noReservasMessage, 'textContent', 'No tienes reservas.');
-    this.renderer.appendChild(reservasContainer, noReservasMessage);
-  } else {
-    this.reservas.forEach(reserva => {
-      const sala = this.salas.find(sala => sala.id === reserva.sala_id);
-      const nombreSala = sala ? sala.nombre_sala : 'Sala desconocida';
-
-      const reservaItem = this.renderer.createElement('li');
-      this.renderer.addClass(reservaItem, 'mb-2');
-
-      const nombreSalaDiv = this.renderer.createElement('div');
-      this.renderer.setProperty(nombreSalaDiv, 'textContent', `Usted tendra Disponible La ${nombreSala}`);
-      this.renderer.appendChild(reservaItem, nombreSalaDiv);
-
-      const fechaReservaDiv = this.renderer.createElement('div');
-     
-      const date = new Date(reserva.dia_reservado);
-          
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0'); 
-      const year = date.getFullYear();
-      const formattedDate = `${day}/${month}/${year}`;
-      
-      this.renderer.setProperty(fechaReservaDiv, 'textContent', `Fecha Reserva: ${formattedDate}`);
-      this.renderer.appendChild(reservaItem, fechaReservaDiv);
-
-      const precioDiv = this.renderer.createElement('div');
-      this.renderer.setProperty(precioDiv, 'textContent', `Precio Final: $${reserva.precio}`);
-      this.renderer.appendChild(reservaItem, precioDiv);
-
-      this.renderer.appendChild(reservasContainer, reservaItem);
-    });
+  private renderReservas(container: any): void {
+    const reservasContainer = this.renderer.createElement('ul');
+    this.renderer.setProperty(reservasContainer, 'innerHTML', '');
+    
+    const title = this.renderer.createElement('h5');
+    this.renderer.setProperty(title, 'textContent', 'Reservas Realizadas');
+    this.renderer.addClass(title, 'mb-4');
+    this.renderer.setStyle(title, 'marginTop', '20px');
+    this.renderer.appendChild(container, title);
+  
+    if (this.reservas.length === 0) {
+      const noReservasMessage = this.renderer.createElement('li');
+      this.renderer.setProperty(noReservasMessage, 'textContent', 'No tienes reservas.');
+      this.renderer.appendChild(reservasContainer, noReservasMessage);
+    } else {
+      this.reservas.forEach(reserva => {
+        const sala = this.salas.find(sala => sala.id === reserva.sala_id);
+        const nombreSala = sala ? sala.nombre_sala : 'Sala desconocida';
+  
+        const reservaItem = this.renderer.createElement('li');
+        this.renderer.addClass(reservaItem, 'mb-2');
+  
+        const nombreSalaDiv = this.renderer.createElement('div');
+        this.renderer.setProperty(nombreSalaDiv, 'textContent', `Usted tendra Disponible La ${nombreSala}`);
+        this.renderer.appendChild(reservaItem, nombreSalaDiv);
+  
+        const fechaReservaDiv = this.renderer.createElement('div');
+        const date = new Date(reserva.dia_reservado);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        const year = date.getFullYear();
+        const formattedDate = `${day}/${month}/${year}`;
+        this.renderer.setProperty(fechaReservaDiv, 'textContent', `Fecha Reserva: ${formattedDate}`);
+        this.renderer.appendChild(reservaItem, fechaReservaDiv);
+  
+        const precioDiv = this.renderer.createElement('div');
+        this.renderer.setProperty(precioDiv, 'textContent', `Precio Final: $${reserva.precio}`);
+        this.renderer.appendChild(reservaItem, precioDiv);
+  
+        const cancelarButton = this.renderer.createElement('button2');
+        this.renderer.addClass(cancelarButton, 'btn');
+        this.renderer.addClass(cancelarButton, 'btn-danger');
+        this.renderer.addClass(cancelarButton, 'ml-2');
+        this.renderer.addClass(cancelarButton, 'btn-sm');
+        this.renderer.setProperty(cancelarButton, 'textContent', 'Cancelar Reserva');
+        this.renderer.listen(cancelarButton, 'click', () => {
+          if (reserva.id) {
+            this.cancelarReserva(reserva.id);
+          } else {
+            console.error('ID de reserva no disponible');
+          }
+        });
+        this.renderer.appendChild(reservaItem, cancelarButton);
+  
+        this.renderer.appendChild(reservasContainer, reservaItem);
+      });
+    }
+  
+    this.renderer.appendChild(container, reservasContainer);
   }
-
-  this.renderer.appendChild(container, reservasContainer);
-}
-
+  
+  private cancelarReserva(reservaId: number): void {
+    console.log('ID de reserva recibido para cancelación:', reservaId); 
+    const confirmacion = confirm('¿Estás seguro de cancelar esta reserva? no hay devolucion de dinero');
+    if (confirmacion) {
+      this.http.delete(`http://localhost:8000/api/cancelar_reserva/${reservaId}/`)
+        .subscribe(response => {
+          console.log('Reserva cancelada:', response);
+          alert('Reserva cancelada exitosamente');
+          this.obtenerReservas(); 
+        }, error => {
+          console.error('Error al cancelar la reserva:', error);
+          alert('Error al cancelar la reserva');
+        });
+    }
+  }
+  
+  
 
   private actualizarDiaReserva(dia: string): void {
     this.carrito.dia_reservado = dia;
@@ -288,6 +319,7 @@ private renderCatalogo(): void {
     this.procesarPago('tarjeta');
 
     const reserva = {
+      id: this.carrito.id,
       dia_reservado: this.carrito.dia_reservado,
       precio: this.carrito.precio,
       sala_id: this.carrito.id,

@@ -178,3 +178,12 @@
   color: #dc3545;
 }
 
+.modern-btn {
+  border-radius: 35px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  color: #4b1007;
+  transition: background-color 0.3s ease;
+}
+
+

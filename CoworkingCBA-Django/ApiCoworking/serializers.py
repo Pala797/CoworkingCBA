@@ -30,19 +30,19 @@ class LoginSerializer(serializers.Serializer):
         else:
             raise serializers.ValidationError("Debe proporcionar un correo electrónico y contraseña.")
     
-from rest_framework import serializers
-from .models import Reserva
+
 
 class ReservaSerializer(serializers.ModelSerializer):
     usuario_id = serializers.IntegerField()  
     sala_id = serializers.IntegerField()  
+    id = serializers.IntegerField()
 
     class Meta:
         model = Reserva
-        fields = ['usuario_id', 'sala_id', 'dia_reservado', 'precio']
+        fields = ['id','usuario_id', 'sala_id', 'dia_reservado', 'precio']
 
     def validate(self, data):
-        sala_id = data.get('sala_id')
+        sala_id = data.get('id')
         dia_reservado = data.get('dia_reservado')
 
 
@@ -52,12 +52,14 @@ class ReservaSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
+        id = validated_data.pop('id')
         usuario_id = validated_data.pop('usuario_id')
         sala_id = validated_data.pop('sala_id')
         dia_reservado = validated_data.pop('dia_reservado')
         precio = validated_data.pop('precio')
 
         reserva = Reserva.objects.create(
+            id=id,
             usuario_id=usuario_id,
             sala_id=sala_id,
             dia_reservado=dia_reservado,

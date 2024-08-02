@@ -14,6 +14,8 @@ from .serializers import LoginSerializer
 import logging
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.shortcuts import get_object_or_404
+
 
 def catalogo_salas(request):
     salas = Sala.objects.all()
@@ -66,7 +68,6 @@ def reservar(request):
     
     
 @api_view(['GET'])
-
 def obtener_reservas(request):
     usuario_id = request.query_params.get('usuario_id')
     if not usuario_id:
@@ -76,3 +77,14 @@ def obtener_reservas(request):
     serializer = ReservaSerializer(reservas, many=True)
     return Response(serializer.data)
 
+
+
+@api_view(['DELETE'])
+def cancelar_reserva(request, reserva_id):
+    try:
+        reserva = Reserva.objects.get(id=reserva_id)
+    except Reserva.DoesNotExist:
+        return Response({'error': 'Reserva no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+
+    reserva.delete()
+    return Response({'message': 'Reserva eliminada exitosamente'}, status=status.HTTP_204_NO_CONTENT)
